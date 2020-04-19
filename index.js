@@ -11,10 +11,12 @@ const swaggerUi = require("swagger-ui-express");
 const errorHandler = require("./helpers/errorHandler");
 const logger = require("./middlewares/logger");
 const models = require("./sequelize/sequelize");
+const routes = require("./app/routes");
 
 const { NODE_ENV, PORT = 4000 } = process.env;
 const { ExtractJwt } = passportJWT;
 const { specs } = require("./middlewares/swaggerMiddleware");
+const { login, getUser } = require("./app/controllers/users/loginUser");
 
 const JwtStrategy = passportJWT.Strategy;
 const jwtOptions = {};
@@ -27,8 +29,10 @@ const strategy = new JwtStrategy(jwtOptions, async function(jwtPayload, next) {
   if (!jwtPayload.idUser) {
     return next(null, false);
   }
-  let user = {};
+  let user = await getUser({ idUser: jwtPayload.idUser });
   if (user) {
+    user = user.dataValues;
+    delete user.hash;
     next(null, user);
   } else {
     next(null, false);
@@ -64,6 +68,32 @@ app.get("/check", (req, res) => {
 });
 
 app.use("/api/swagger", swaggerUi.serve, swaggerUi.setup(specs));
+
+/**
+ * @swagger
+ * /login:
+ *    post:
+ *      tags:
+ *       - Logging
+ *      summary: Logging.
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - name: body
+ *          in: body
+ *          schema:
+ *            $ref: '#/definitions/logging'
+ *      responses:
+ *        200:
+ *          description: Returns success.
+ */
+app.post("/login", (req, res) => {
+  login(req, res, jwtOptions);
+});
+
+app.use(passport.authenticate("jwt", { session: false }));
+
+app.use("/app", routes);
 
 app.use(function(err, req, res) {
   if (err.status) {

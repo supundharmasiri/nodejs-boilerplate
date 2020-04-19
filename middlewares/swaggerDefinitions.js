@@ -29,6 +29,28 @@ module.exports = {
           type: "string"
         }
       }
+    },
+    post_user: {
+      properties: {
+        firstName: {
+          type: "string"
+        },
+        lastName: {
+          type: "string"
+        },
+        email: {
+          type: "string"
+        },
+        phoneNumber: {
+          type: "string"
+        },
+        password: {
+          type: "string"
+        },
+        idUserRole: {
+          type: "number"
+        }
+      }
     }
   }
 };
