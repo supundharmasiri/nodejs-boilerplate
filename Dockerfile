@@ -1,0 +1,40 @@
+FROM node:slim
+
+ARG PORT
+ARG SQL_HOST
+ARG SQL_HOST_READ
+ARG SQL_HOST_WRITE
+ARG SQL_PORT
+ARG SQL_DB
+ARG SQL_USER
+ARG SQL_PASS
+ARG SQL_DIALECT
+ARG SQL_POOL_LIMIT
+
+# copy argument to env
+ENV PORT=$PORT
+ENV SQL_HOST=$SQL_HOST
+ENV SQL_HOST_READ=$SQL_HOST_READ
+ENV SQL_HOST_WRITE=$SQL_HOST_WRITE
+ENV SQL_PORT=$SQL_PORT
+ENV SQL_DB=$SQL_DB
+ENV SQL_USER=$SQL_USER
+ENV SQL_PASS=$SQL_PASS
+ENV SQL_DIALECT=$SQL_DIALECT
+ENV SQL_POOL_LIMIT=$SQL_POOL_LIMIT
+
+RUN mkdir -p /usr/src/app
+WORKDIR '/app'
+
+COPY package*.json ./
+RUN yarn global add node-gyp
+RUN yarn install --production
+RUN yarn global add sequelize-cli
+
+COPY . .
+
+
+RUN yarn migrate
+RUN yarn seed:all
+
+CMD ["node", "index.js"]
