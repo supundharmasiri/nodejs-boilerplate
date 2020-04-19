@@ -18,6 +18,11 @@ yarn
 yarn start
 ```
 
+## View swagger doc
+```shell
+http://localhost:4000/api/swagger
+```
+
 ## Create SQL database migrations
 
 ```shell
