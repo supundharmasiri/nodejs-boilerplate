@@ -42,6 +42,15 @@ npx sequelize seed:create --name seed-name
 yarn seed:all
 ```
 
+## Run test
+
+```shell
+yarn test
+
+# test live
+yarn test:live
+```
+
 ## Structure
 
 ```
