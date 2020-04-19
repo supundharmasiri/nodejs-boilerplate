@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node -r dotenv/config index.js",
     "start:nodemon": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretty": "prettier --write *.js \"middlewares/**/*.js\" \"helpers/**/*.js\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -52,5 +55,24 @@
     "nodemon": "^1.19.0",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "middlewares/**/*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "helpers/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
