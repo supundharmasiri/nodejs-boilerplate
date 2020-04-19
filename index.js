@@ -8,7 +8,7 @@ const passportJWT = require("passport-jwt");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 
-const errorHandler = require("./helpers/error-handler");
+const errorHandler = require("./helpers/errorHandler");
 const logger = require("./middlewares/logger");
 
 const { NODE_ENV, PORT = 4000 } = process.env;
@@ -55,7 +55,7 @@ app.get("/check", (req, res) => {
 
 app.use("/api/swagger", swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   if (err.status) {
     return res.status(err.status || 500).send(err);
   } else {

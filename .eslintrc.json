@@ -1,0 +1,33 @@
+{
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "plugins": [
+        "filenames"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "no-undef": "error",
+        "no-prototype-builtins": "off",
+        "no-unused-vars": [
+            "error",
+            {
+                "args": "none"
+            }
+        ],
+        "no-duplicate-imports": "error",
+        "filenames/match-regex": [
+            2,
+            "^[a-zA-Z.]+$"
+        ]
+    }
+}
