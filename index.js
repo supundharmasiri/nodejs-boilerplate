@@ -17,16 +17,21 @@ const { NODE_ENV, PORT = 4000 } = process.env;
 const { ExtractJwt } = passportJWT;
 const { specs } = require("./middlewares/swaggerMiddleware");
 const { login, getUser } = require("./app/controllers/users/loginUser");
+const { SECRET } = require("./constant");
 
 const JwtStrategy = passportJWT.Strategy;
 const jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = "HE.6LMkK{@b3f/X$M/y?^{PXn=(S2p$y";
+jwtOptions.secretOrKey = SECRET;
 
 http.globalAgent.keepAlive = true;
 
 const strategy = new JwtStrategy(jwtOptions, async function(jwtPayload, next) {
   if (!jwtPayload.idUser) {
+    return next(null, false);
+  }
+  var expirationDate = new Date(jwtPayload.exp * 1000);
+  if (expirationDate < new Date()) {
     return next(null, false);
   }
   let user = await getUser({ idUser: jwtPayload.idUser });
@@ -96,6 +101,10 @@ app.use(passport.authenticate("jwt", { session: false }));
 app.use("/app", routes);
 
 app.use(function(err, req, res) {
+  if (err && err.name === "UnauthorizedError") {
+    // log unauthorized requests
+    res.status(401).end();
+  }
   if (err.status) {
     return res.status(err.status || 500).send(err);
   } else {

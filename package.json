@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node -r dotenv/config index.js",
     "start:nodemon": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --setupFiles dotenv/config --forceExit",
+    "test:live": "jest --watch --setupFiles dotenv/config",
     "pretty": "prettier --write *.js \"middlewares/**/*.js\" \"helpers/**/*.js\" \"app/**/*.js\" \"config/**/*.js\" \"sequelize/**/*.js\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
