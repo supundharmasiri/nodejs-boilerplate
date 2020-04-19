@@ -14,8 +14,8 @@ async function hashPassword(password) {
 
 /**
  * Get uniq values in array
- * @param {Required} array 
- * @param {Not Required. This is for object arrays.} key 
+ * @param {Required} array
+ * @param {Not Required. This is for object arrays.} key
  */
 function onlyUnique(array, key) {
   if (key) {

@@ -1,4 +1,4 @@
-const { HOST } = require('../constant');
+const { HOST } = require("../constant");
 
 module.exports = {
   baseDefinitions: {
