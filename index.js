@@ -10,6 +10,7 @@ const swaggerUi = require("swagger-ui-express");
 
 const errorHandler = require("./helpers/errorHandler");
 const logger = require("./middlewares/logger");
+const models = require("./sequelize/sequelize");
 
 const { NODE_ENV, PORT = 4000 } = process.env;
 const { ExtractJwt } = passportJWT;
@@ -33,6 +34,15 @@ const strategy = new JwtStrategy(jwtOptions, async function(jwtPayload, next) {
     next(null, false);
   }
 });
+
+models.sequelize
+  .sync()
+  .then(() => {
+    logger.info("Nice! Database looks fine");
+  })
+  .catch(err => {
+    logger.error(err, "Something went wrong with the Database Update!");
+  });
 
 passport.use(strategy);
 app.use(passport.initialize());

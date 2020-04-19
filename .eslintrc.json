@@ -29,5 +29,6 @@
             2,
             "^[a-zA-Z.]+$"
         ]
-    }
+    },
+    "ignorePatterns": ["sequelize/migrations", "sequelize/seeders", "node_modules/"]
 }

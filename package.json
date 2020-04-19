@@ -7,9 +7,11 @@
     "start": "node -r dotenv/config index.js",
     "start:nodemon": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretty": "prettier --write *.js \"middlewares/**/*.js\" \"helpers/**/*.js\"",
+    "pretty": "prettier --write *.js \"middlewares/**/*.js\" \"helpers/**/*.js\" \"app/**/*.js\" \"config/**/*.js\" \"sequelize/**/*.js\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "migrate": "sequelize db:migrate",
+    "seed:all": "sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -58,6 +60,9 @@
     "supertest": "^4.0.2"
   },
   "lint-staged": {
+    ".": [
+      "eslint ."
+    ],
     "*.js": [
       "prettier --write",
       "git add"
@@ -67,6 +72,18 @@
       "git add"
     ],
     "helpers/**/*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "app/**/*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "config/**/*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "sequelize/**/*.js": [
       "prettier --write",
       "git add"
     ]
