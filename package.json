@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node -r dotenv/config index.js",
+    "start:nodemon": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,40 @@
   "bugs": {
     "url": "https://github.com/supundharmasiri/nodejs-boilerplate/issues"
   },
-  "homepage": "https://github.com/supundharmasiri/nodejs-boilerplate#readme"
+  "homepage": "https://github.com/supundharmasiri/nodejs-boilerplate#readme",
+  "dependencies": {
+    "@hapi/joi": "^15.0.1",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "sequelize": "^5.21.6",
+    "sequelize-cli": "^5.5.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "autocannon": "^4.1.1",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.0.10",
+    "jest": "^24.9.0",
+    "lint-staged": "^10.0.0",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.19.1",
+    "supertest": "^4.0.2"
+  }
 }
