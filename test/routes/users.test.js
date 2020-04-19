@@ -15,10 +15,6 @@ const validUserData = {
   idUserRole: 3
 };
 
-const invalidUserData = {
-  mail: "test@example.com"
-};
-
 describe("/app/user", () => {
   let userID = null;
   let token = null;
